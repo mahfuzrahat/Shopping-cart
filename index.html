@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5 id="total-price">$1,278</h5>
+                        <h5 id="tax-amount">$0</h5>
+                        <h5 id="final-total-price">$1,278</h5>
                      </div>
                   </div>
                </div>
@@ -96,13 +96,15 @@
             if(isIncrease == true){
                phoneNewCount = phoneCount + 1;
             }
-            if(isIncrease == false && phoneCount > 1){
+            if(isIncrease == false && phoneCount > 0){
                phoneNewCount = phoneCount - 1;
             }
             document.getElementById("phoneQuantity").value = phoneNewCount;
             const phoneTotal = phoneNewCount * 1219;
             document.getElementById("phoneTotal").innerText = '$' + phoneTotal;
+            calculateTotal();
          }
+         
 
          // const phonePlusBtn = document.getElementById("phoneIncrease");
          // phonePlusBtn.addEventListener("click", function(){
@@ -145,12 +147,31 @@
             if(isIncrease == true){
                caseNewCount = caseCount + 1;
             }
-            if(isIncrease == false && caseCount > 1){
+            if(isIncrease == false && caseCount > 0){
                caseNewCount = caseCount - 1;
             }
             document.getElementById("caseQuantity").value = caseNewCount;
             const caseTotal = caseNewCount * 59;
             document.getElementById("case-total").innerText = '$' + caseTotal;
+            calculateTotal();
+         }
+
+         // ******This function to set total price*******         
+         function calculateTotal(){
+            const phoneInput = document.getElementById("phoneQuantity");
+            const phoneCount = parseInt(phoneInput.value);
+
+            const caseInput = document.getElementById("caseQuantity");
+            const caseCount = parseInt(caseInput.value);
+
+            const totalPrice = phoneCount * 1219 + caseCount * 59;
+            document.getElementById("total-price").innerText = '$' + totalPrice;
+
+            const tax = Math.round(totalPrice * 0.1);
+            document.getElementById("tax-amount").innerText = '$' + tax;
+
+            const finalTotal = totalPrice + tax;
+            document.getElementById("final-total-price").innerText = '$' + finalTotal;
          }
 
 
